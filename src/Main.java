@@ -22,8 +22,53 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args){
+        JFrame forbuttons = new JFrame();
         JFrame frame = new JFrame();
+        JPanel panelestupido = new JPanel();
 
+        panelestupido.setSize(1100,1030);
+        panelestupido.setVisible(true);
+        panelestupido.setLayout(null);
+
+        forbuttons.setContentPane(panelestupido);
+
+       /* JTextField campo1 = new JTextField();
+        campo1.setLocation(10,50);
+        campo1.setSize(200,20);
+        forbuttons.getContentPane().add(campo1);
+
+        JTextField campo2 = new JTextField();
+        campo2.setLocation(10,80);
+        campo2.setSize(200,20);
+        forbuttons.getContentPane().add(campo2);
+
+        JTextField campo3 = new JTextField();
+        campo3.setLocation(10,110);
+        campo3.setSize(200,20);
+        forbuttons.getContentPane().add(campo3);*/
+
+        JButton showframe = new JButton("Run");
+        showframe.setSize(100,50);
+        showframe.setLocation(10, 150);
+        showframe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(true);
+                frame.setResizable(true);
+            }
+        });
+        forbuttons.getContentPane().add(showframe);
+
+        //*********************************************
+
+        forbuttons.setBackground(Color.LIGHT_GRAY);
+        forbuttons.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        forbuttons.setSize(500,500);
+
+        forbuttons.setVisible(true);
+        forbuttons.setResizable(false);
+
+        //*********************************************
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Introduzca dos enteros para determinar la matriz de nxn y el porcentaje de obstaculos.");
@@ -46,7 +91,7 @@ public class Main {
             }
         });
 
-        frame.getContentPane().add(crear);
+        frame.add(crear);
 
         JButton start = new JButton("Start");
         start.setSize(100,40);
@@ -59,7 +104,7 @@ public class Main {
             }
         });
 
-        frame.getContentPane().add(start);
+        frame.add(start);
 
 
         frame.add(tb);
@@ -123,8 +168,6 @@ public class Main {
         frame.setSize(1100,1030);
         frame.setBackground(Color.LIGHT_GRAY);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.setResizable(true);
 
 
     }
