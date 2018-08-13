@@ -51,23 +51,7 @@ public class Main {
         } // fin de if
 
 
-
-       /* JTextField campo1 = new JTextField();
-        campo1.setLocation(10,50);
-        campo1.setSize(200,20);
-        forbuttons.getContentPane().add(campo1);
-
-        JTextField campo2 = new JTextField();
-        campo2.setLocation(10,80);
-        campo2.setSize(200,20);
-        forbuttons.getContentPane().add(campo2);
-
-        JTextField campo3 = new JTextField();
-        campo3.setLocation(10,110);
-        campo3.setSize(200,20);
-        forbuttons.getContentPane().add(campo3);*/
-
-        int n1 = 0;
+        int n1 = 20;
         int numobs = 0;
 
         File file = archivo;
@@ -87,7 +71,6 @@ public class Main {
                 } else if (st.endsWith("2")) {
                     System.out.println("SOY UNA META");
                 }
-                n1++;
             }
             System.out.println(n1);
             System.out.println(numobs);
@@ -129,7 +112,7 @@ public class Main {
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tb.creategame();
+                tb.crearobs();
                 tb.game();
             }
         });

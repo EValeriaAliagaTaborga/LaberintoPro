@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="LaberintoTonto:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/LaberintoTonto_jar</output-path>
+    <root id="archive" name="LaberintoTonto.jar">
+      <element id="module-output" name="LaberintoTonto" />
+      <element id="archive" name="LaberintoErickaValeriaAliagaTaborga.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
