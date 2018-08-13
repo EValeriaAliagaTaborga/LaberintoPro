@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 /*EL PRESENTE PROGRAMA CREA UN LABERINTO DE n x n, AÑADIENDO UN AGENTE CON FORMA DE CÍRCULO COLOR GRIS Y OBSTÁCULOS
@@ -32,6 +36,22 @@ public class Main {
 
         forbuttons.setContentPane(panelestupido);
 
+        // muestra el cuadro de diálogo de archivos, para que el usuario pueda elegir el archivo a abrir
+        JFileChooser selectorArchivos = new JFileChooser();
+        selectorArchivos.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+
+        // indica cual fue la accion de usuario sobre el jfilechooser
+        int resultado = selectorArchivos.showOpenDialog(forbuttons);
+
+        File archivo = selectorArchivos.getSelectedFile(); // obtiene el archivo seleccionado
+
+        // muestra error si es inválido
+        if ((archivo == null) || (archivo.getName().equals(""))) {
+            JOptionPane.showMessageDialog(forbuttons, "Nombre de archivo inválido", "Nombre de archivo inválido", JOptionPane.ERROR_MESSAGE);
+        } // fin de if
+
+
+
        /* JTextField campo1 = new JTextField();
         campo1.setLocation(10,50);
         campo1.setSize(200,20);
@@ -47,9 +67,41 @@ public class Main {
         campo3.setSize(200,20);
         forbuttons.getContentPane().add(campo3);*/
 
+        int n1 = 0;
+        int numobs = 0;
+
+        File file = archivo;
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            String st;
+            while ((st = br.readLine()) != null){
+                System.out.println(st);
+
+                if(st.endsWith("0")){
+                    System.out.println("SOY UN OBSTACULO");
+                    numobs++;
+                } else if (st.endsWith("1")) {
+                    System.out.println("SOY UN AGENTE");
+                } else if (st.endsWith("2")) {
+                    System.out.println("SOY UNA META");
+                }
+                n1++;
+            }
+            System.out.println(n1);
+            System.out.println(numobs);
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
+
+        Elementos[][] mapa = new Elementos[n1][n1];
+
+        Tablero tb = new Tablero(n1, numobs, mapa,archivo);
+
         JButton showframe = new JButton("Run");
         showframe.setSize(100,50);
-        showframe.setLocation(10, 150);
+        showframe.setLocation(10, 80);
         showframe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,35 +115,12 @@ public class Main {
 
         forbuttons.setBackground(Color.LIGHT_GRAY);
         forbuttons.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        forbuttons.setSize(500,500);
+        forbuttons.setSize(200,200);
 
         forbuttons.setVisible(true);
         forbuttons.setResizable(false);
 
         //*********************************************
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Introduzca dos enteros para determinar la matriz de nxn y el porcentaje de obstaculos.");
-        System.out.println("Ej.: 6 5 (Matriz 6x6 con 5 porciento de obstaculos)");
-
-        int n1 = sc.nextInt();
-        int porcen = sc.nextInt();
-        Elementos[][] mapa = new Elementos[n1][n1];
-
-        Tablero tb = new Tablero(n1, porcen, mapa);
-
-        JButton crear = new JButton("Crear elementos");
-        crear.setSize(150,40);
-        crear.setLocation(920,10);
-
-        crear.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tb.StartGame();
-            }
-        });
-
-        frame.add(crear);
 
         JButton start = new JButton("Start");
         start.setSize(100,40);
@@ -100,6 +129,7 @@ public class Main {
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                tb.creategame();
                 tb.game();
             }
         });
@@ -110,66 +140,9 @@ public class Main {
         frame.add(tb);
 
 
-
-        /*
-        JButton movD = new JButton("movD");
-        movD.setPreferredSize(new Dimension(100,40));
-
-        movD.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tb.movDer();
-            }
-        });
-
-        tb.add(movD);
-
-
-        JButton movI = new JButton("movI");
-        movI.setPreferredSize(new Dimension(100,40));
-
-        movI.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tb.movIz();
-            }
-        });
-
-        tb.add(movI);
-
-
-        JButton movUp = new JButton("movUp");
-        movUp.setPreferredSize(new Dimension(100,40));
-
-        movUp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tb.movUp();
-            }
-        });
-
-        tb.add(movUp);
-
-
-        JButton movDw = new JButton("movDw");
-        movDw.setPreferredSize(new Dimension(100,40));
-
-        movDw.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tb.movDw();
-            }
-        });
-
-        tb.add(movDw);
-        */
-
-
         frame.setSize(1100,1030);
         frame.setBackground(Color.LIGHT_GRAY);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
     }
 
 }
